@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>display json data in table using vue js</title>
+	
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+	<!-- Axios -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<!-- VueJs -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+</head>
+<body>
+
+	<div class="container mt-4" id="app">
+
+		<h1 class="text-center">{{title}}</h1>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Website</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="user, index in users">
+					<th scope="row">{{ index + 1 }}</th>
+					<td>{{ user.name }}</td>
+					<td>{{ user.email.toLowerCase() }}</td>
+					<td>{{ user.website }}</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+
+
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				title: "Display json data in table using vue js",
+				users: [],
+			},
+			mounted: function() {
+				axios.get("https://jsonplaceholder.typicode.com/users")
+				  .then(response => {
+				    // handle success
+				    this.users = response.data;
+				    console.log(response);
+				  })
+				  .catch(error => {
+				    // handle error
+				    console.log(error);
+				  })
+			  
+			}
+		})
+	</script>
+
+
+</body>
+</html>
